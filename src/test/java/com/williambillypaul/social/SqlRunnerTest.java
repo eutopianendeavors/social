@@ -17,10 +17,14 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.apache.log4j.Logger;
+
 public class SqlRunnerTest extends TestCase {
 
+	static Logger logger = Logger.getLogger(SqlRunnerTest.class);
+
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://192.168.56.202:3306/social";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/social";
 
 	// Database credentials
 	static final String USER = "social";
@@ -36,7 +40,6 @@ public class SqlRunnerTest extends TestCase {
 		}
 		Integer currentVersion = getCurrentVersion(connection);
 		List<SqlScript> upgradeScripts = getSortedUpgradeScripts();
-
 		try {
 
 			for (SqlScript sqlScript : upgradeScripts) {
@@ -112,6 +115,10 @@ public class SqlRunnerTest extends TestCase {
 
 		private Integer runOrder;
 		private String path;
+
+		public SqlScript() {
+			super();
+		}
 
 		public SqlScript(Integer runOrder, String path) {
 			super();
